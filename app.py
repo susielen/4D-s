@@ -4,8 +4,8 @@ import io
 
 # 1. Configuração da Página
 st.set_page_config(
-    page_title="4D's",
-    page_icon="💡",
+    page_title="Grupo 4D's",
+    page_icon="🚗🧑🏼‍🔧",
     layout="wide"
 )
 
@@ -16,14 +16,14 @@ st.markdown("""
 
     /* FUNDO LILÁS LAVANDA (Suave para os olhos) */
     .stApp {
-        background-color: #F3F0FF; 
+        background-color: #20B2AA; 
         background-image: url("https://www.transparenttextures.com/patterns/cubes.png");
         background-attachment: fixed;
     }
 
     /* BARRA LATERAL E TOPO (Roxo Pastel) */
     header[data-testid="stHeader"], [data-testid="stSidebar"] {
-        background-color: #9B8ADE !important;
+        background-color: #20B2AA !important;
     }
 
     /* ESCONDER A COROA E ÍCONES DO TOPO */
