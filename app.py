@@ -23,7 +23,7 @@ st.markdown("""
 
     /* BARRA LATERAL E TOPO (Roxo Pastel) */
     header[data-testid="stHeader"], [data-testid="stSidebar"] {
-        background-color: #778899 !important;
+        background-color: #2E8B57 !important;
     }
 
     /* ESCONDER A COROA E ÍCONES DO TOPO */
@@ -84,7 +84,7 @@ st.markdown("""
     }
     </style>
     
-    <p class="titulo">💡 SOLUX: Seu parceiro na conciliação 💡</p>
+    <p class="titulo"> Grupo 4D's 🚗</p>
     """, unsafe_allow_html=True)
 
 
