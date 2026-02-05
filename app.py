@@ -93,8 +93,7 @@ if arquivos_subidos:
             pd.concat(forn_list + adiant_list).to_excel(writer, index=False, sheet_name='Geral_D1_D4')
 
     st.write("---")
-    st.balloons()
-    
+        
     # Botão de Download Verde Escuro
     st.download_button(
         label="📥 DESCARREGAR RELATÓRIO FINAL (D1-D4)",
