@@ -2,16 +2,19 @@ import streamlit as st
 import pandas as pd
 import io
 
-# 1. Configuração da Página e Estilo (Verde mais Escuro)
-st.set_page_config(page_title="Grupo 4D's", layout="wide")
+# 1. Configuração da Página e Estilo (Verde Escuro com Borda no Topo)
+st.set_page_config(page_title="Conciliador Grupo D", layout="wide")
 
 st.markdown("""
     <style>
     /* Cor de fundo da página (Verde Floresta Suave) */
     .stApp {
         background-color: #e1ede2;
+        /* BORDA DE CIMA PINTADA: Verde bem escuro e grossinha */
+        border-top: 15px solid #1b5e20;
     }
-    /* Botão de Download (Verde Bem Escuro e Forte) */
+    
+    /* Botão de Download (Verde Bem Escuro) */
     .stDownloadButton>button {
         background-color: #1b5e20 !important;
         color: white !important;
@@ -20,18 +23,16 @@ st.markdown("""
         border: 2px solid #003300 !important;
         padding: 0.7rem 2.5rem !important;
     }
-    /* Hover do botão (mudar cor ao passar o rato) */
-    .stDownloadButton>button:hover {
-        background-color: #0d3c11 !important;
-        color: #ffffff !important;
-    }
+    
     /* Títulos em Verde Musgo */
     h1, h2, h3 {
         color: #1b5e20;
     }
-    /* Barra lateral em tom de verde fechado */
+    
+    /* Barra lateral */
     [data-testid="stSidebar"] {
         background-color: #c8e6c9;
+        border-top: 15px solid #1b5e20; /* Borda também na lateral para alinhar */
     }
     </style>
     """, unsafe_allow_html=True)
@@ -40,21 +41,22 @@ st.markdown("""
 st.title("Grupo D")
 st.write("---")
 
-# 3. Painel Lateral
+# 3. Painel Lateral com nomes D1 a D4
 with st.sidebar:
-    st.header("🛠️ Painel de Controle")
-    st.success("Conciliação Ativa e Segura")
+    st.header("🛠️ Painel de Controlo")
+    st.success("Robô Ativo e Seguro")
     st.write("**Empresas Registadas:**")
     st.write("- Empresa **D1**")
     st.write("- Empresa **D2**")
     st.write("- Empresa **D3**")
     st.write("- Empresa **D4**")
+    
+    st.divider()
+    st.markdown("### 📖 Regras de Cálculo:")
+    st.info("Sinal para Fornecedores:\n**Crédito (+)**\n**Débito (-)**")
 
-
-# 4. Área de Upload
-st.subheader("📥 Central de Arquivos .xlsx")
-st.write("Selecione os Razões de Fornecedores e Adiantamentos:")
-
+# 4. Área de Trabalho (Upload)
+st.subheader("📥 Área de Anexos .xlsx")
 arquivos_subidos = st.file_uploader(
     "Carregar planilhas do Sistema Domínio", 
     type="xlsx", 
@@ -69,7 +71,7 @@ if arquivos_subidos:
         df = pd.read_excel(arq)
         nome_bq = arq.name.lower()
         
-        # Aplicação da Regra de Ouro (C+ / D-)
+        # Regra de Ouro do Daniel (C+ / D-)
         if 'Crédito' in df.columns and 'Débito' in df.columns:
             df['Saldo_Ajustado'] = df['Crédito'] - df['Débito']
         
@@ -77,12 +79,12 @@ if arquivos_subidos:
         
         if "adiantamento" in nome_bq:
             adiant_list.append(df)
-            st.write(f"✔️ **Adiantamento:** {arq.name}")
+            st.write(f"✔️ **Adiantamento lido:** {arq.name}")
         else:
             forn_list.append(df)
-            st.write(f"✔️ **Fornecedor:** {arq.name}")
+            st.write(f"✔️ **Fornecedor lido:** {arq.name}")
 
-    # 5. Processamento do Excel Final
+    # 5. Processamento para Download
     output = io.BytesIO()
     with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
         if forn_list:
@@ -93,8 +95,8 @@ if arquivos_subidos:
             pd.concat(forn_list + adiant_list).to_excel(writer, index=False, sheet_name='Geral_D1_D4')
 
     st.write("---")
-        
-    # Botão de Download Verde Escuro
+    st.✅()
+    
     st.download_button(
         label="📥 DESCARREGAR RELATÓRIO FINAL (D1-D4)",
         data=output.getvalue(),
@@ -103,7 +105,7 @@ if arquivos_subidos:
     )
 
 else:
-    st.warning("A aguardar os ficheiros para processamento...")
+    st.warning("A aguardar os ficheiros...")
 
 st.divider()
-st.caption("🔒 Segurança Máxima: Este robô utiliza apenas memória temporária para os cálculos.")
+st.caption("🔒 Segurança Máxima: Este robô utiliza apenas memória temporária.")
