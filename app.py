@@ -3,7 +3,7 @@ import pandas as pd
 import io
 
 # 1. Configuração da Página e Estilo (Verde mais Escuro)
-st.set_page_config(page_title="Conciliador Grupo D", layout="wide")
+st.set_page_config(page_title="Grupo 4D's", layout="wide")
 
 st.markdown("""
     <style>
@@ -37,22 +37,19 @@ st.markdown("""
     """, unsafe_allow_html=True)
 
 # 2. Título
-st.title("🌲 Robô Conciliador: Grupo D")
+st.title("Grupo D")
 st.write("---")
 
 # 3. Painel Lateral
 with st.sidebar:
-    st.header("🛠️ Painel de Controlo")
-    st.success("Robô Ativo e Seguro")
+    st.header("🛠️ Painel de Controle")
+    st.success("Conciliação Ativa e Segura")
     st.write("**Empresas Registadas:**")
     st.write("- Empresa **D1**")
     st.write("- Empresa **D2**")
     st.write("- Empresa **D3**")
     st.write("- Empresa **D4**")
-    
-    st.divider()
-    st.markdown("### 📖 Regras de Cálculo:")
-    st.info("Sinal para Fornecedores:\n**Crédito (+)**\n**Débito (-)**")
+
 
 # 4. Área de Upload
 st.subheader("📥 Central de Arquivos .xlsx")
