@@ -2,120 +2,112 @@ import streamlit as st
 import pandas as pd
 import io
 
-# 1. Configuração da Página e Estilo (Fundo Verdinho)
+# 1. Configuração da Página e Estilo (Verde mais Escuro)
 st.set_page_config(page_title="Conciliador Grupo D", layout="wide")
 
 st.markdown("""
     <style>
-    /* Cor de fundo da página toda (Verdinho claro) */
+    /* Cor de fundo da página (Verde Floresta Suave) */
     .stApp {
-        background-color: #f0f9f1;
+        background-color: #e1ede2;
     }
-    /* Estilo do botão de download (Verde escuro) */
+    /* Botão de Download (Verde Bem Escuro e Forte) */
     .stDownloadButton>button {
-        background-color: #28a745 !important;
+        background-color: #1b5e20 !important;
         color: white !important;
         font-weight: bold !important;
         border-radius: 8px !important;
-        border: none !important;
-        padding: 0.6rem 2rem !important;
+        border: 2px solid #003300 !important;
+        padding: 0.7rem 2.5rem !important;
     }
-    /* Estilo do título */
-    h1 {
-        color: #1e7e34;
+    /* Hover do botão (mudar cor ao passar o rato) */
+    .stDownloadButton>button:hover {
+        background-color: #0d3c11 !important;
+        color: #ffffff !important;
     }
-    /* Estilo da barra lateral */
+    /* Títulos em Verde Musgo */
+    h1, h2, h3 {
+        color: #1b5e20;
+    }
+    /* Barra lateral em tom de verde fechado */
     [data-testid="stSidebar"] {
-        background-color: #e8f5e9;
+        background-color: #c8e6c9;
     }
     </style>
     """, unsafe_allow_html=True)
 
-# 2. Título e Identificação
-st.title("🟢 Robô Conciliador: Grupo D")
+# 2. Título
+st.title("🌲 Robô Conciliador: Grupo D")
 st.write("---")
 
-# 3. Painel Lateral com os nomes D1 a D4
+# 3. Painel Lateral
 with st.sidebar:
-    st.header("🛠️ Configurações")
-    st.success("Status: Robô Online")
-    st.write("**Empresas do Grupo:**")
-    st.write("- **Empresa D1**")
-    st.write("- **Empresa D2**")
-    st.write("- **Empresa D3**")
-    st.write("- **Empresa D4**")
+    st.header("🛠️ Painel de Controlo")
+    st.success("Robô Ativo e Seguro")
+    st.write("**Empresas Registadas:**")
+    st.write("- Empresa **D1**")
+    st.write("- Empresa **D2**")
+    st.write("- Empresa **D3**")
+    st.write("- Empresa **D4**")
     
     st.divider()
-    st.markdown("### 📖 Regra Aplicada:")
-    st.info("**Para Fornecedor e Adiantamento:**\nCrédito é POSITIVO (+)\nDébito é NEGATIVO (-)")
+    st.markdown("### 📖 Regras de Cálculo:")
+    st.info("Sinal para Fornecedores:\n**Crédito (+)**\n**Débito (-)**")
 
-# 4. Área de Trabalho (Upload)
-st.subheader("📥 Suba os Razões (Fornecedores e Adiantamentos)")
-st.write("Você pode selecionar vários arquivos de uma vez.")
+# 4. Área de Upload
+st.subheader("📥 Central de Arquivos .xlsx")
+st.write("Selecione os Razões de Fornecedores e Adiantamentos:")
 
 arquivos_subidos = st.file_uploader(
-    "Arraste os arquivos .xlsx do Sistema Domínio aqui", 
+    "Carregar planilhas do Sistema Domínio", 
     type="xlsx", 
     accept_multiple_files=True
 )
 
 if arquivos_subidos:
-    lista_fornecedores = []
-    lista_adiantamentos = []
+    forn_list = []
+    adiant_list = []
     
     for arq in arquivos_subidos:
-        # Lendo o Excel
         df = pd.read_excel(arq)
-        nome_arquivo = arq.name.lower()
+        nome_bq = arq.name.lower()
         
-        # --- APLICANDO A SUA REGRA DE SINAL ---
-        # Crédito (+) e Débito (-)
+        # Aplicação da Regra de Ouro (C+ / D-)
         if 'Crédito' in df.columns and 'Débito' in df.columns:
             df['Saldo_Ajustado'] = df['Crédito'] - df['Débito']
         
-        # Guardando o nome da empresa/arquivo
-        df['Origem_Arquivo'] = arq.name
+        df['Identificador'] = arq.name
         
-        # Separando o que é Adiantamento do que é Fornecedor Normal
-        if "adiantamento" in nome_arquivo:
-            lista_adiantamentos.append(df)
-            st.write(f"✅ **Adiantamento** identificado: {arq.name}")
+        if "adiantamento" in nome_bq:
+            adiant_list.append(df)
+            st.write(f"✔️ **Adiantamento:** {arq.name}")
         else:
-            lista_fornecedores.append(df)
-            st.write(f"✅ **Fornecedor** identificado: {arq.name}")
+            forn_list.append(df)
+            st.write(f"✔️ **Fornecedor:** {arq.name}")
 
-    # 5. Criando o Excel final com abas separadas
+    # 5. Processamento do Excel Final
     output = io.BytesIO()
     with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
-        
-        # Aba de Fornecedores
-        if lista_fornecedores:
-            df_forn = pd.concat(lista_fornecedores)
-            df_forn.to_excel(writer, index=False, sheet_name='Fornecedores_D')
-        
-        # Aba de Adiantamentos
-        if lista_adiantamentos:
-            df_adant = pd.concat(lista_adiantamentos)
-            df_adant.to_excel(writer, index=False, sheet_name='Adiantamentos_D')
-            
-        # Aba Geral (Tudo junto para conferência)
-        if lista_fornecedores or lista_adiantamentos:
-            df_geral = pd.concat(lista_fornecedores + lista_adiantamentos)
-            df_geral.to_excel(writer, index=False, sheet_name='Geral_D1_D4')
+        if forn_list:
+            pd.concat(forn_list).to_excel(writer, index=False, sheet_name='Fornecedores_D')
+        if adiant_list:
+            pd.concat(adiant_list).to_excel(writer, index=False, sheet_name='Adiantamentos_D')
+        if forn_list or adiant_list:
+            pd.concat(forn_list + adiant_list).to_excel(writer, index=False, sheet_name='Geral_D1_D4')
 
     st.write("---")
-    st.balloons() # Celebração!
+    st.balloons()
     
-    # Botão de Download Verde
+    # Botão de Download Verde Escuro
     st.download_button(
-        label="📥 BAIXAR CONCILIAÇÃO COMPLETA (D1-D4)",
+        label="📥 DESCARREGAR RELATÓRIO FINAL (D1-D4)",
         data=output.getvalue(),
-        file_name="Conciliacao_Grupo_D_Final.xlsx",
+        file_name="Relatorio_Conciliacao_GrupoD.xlsx",
         mime="application/vnd.ms-excel"
     )
 
 else:
-    st.warning("Estou aguardando os arquivos para começar...")
+    st.warning("A aguardar os ficheiros para processamento...")
 
 st.divider()
-st.caption("🛡️ Projeto Protegido: Nomes reais e dados sensíveis não são salvos no código.")
+st.caption("🔒 Segurança Máxima: Este robô utiliza apenas memória temporária para os cálculos.")
