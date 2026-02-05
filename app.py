@@ -23,7 +23,7 @@ st.markdown("""
 
     /* BARRA LATERAL E TOPO (Roxo Pastel) */
     header[data-testid="stHeader"], [data-testid="stSidebar"] {
-        background-color: #20B2AA !important;
+        background-color: #778899 !important;
     }
 
     /* ESCONDER A COROA E ÍCONES DO TOPO */
