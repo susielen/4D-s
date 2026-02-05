@@ -23,7 +23,7 @@ st.markdown("""
 
     /* BARRA LATERAL E TOPO (Roxo Pastel) */
     header[data-testid="stHeader"], [data-testid="stSidebar"] {
-        background-color: #2E8B57 !important;
+        background-color: #008080 !important;
     }
 
     /* ESCONDER A COROA E ÍCONES DO TOPO */
@@ -34,7 +34,7 @@ st.markdown("""
     /* TÍTULO FINO E ELEGANTE */
     .titulo {
         font-family: 'Montserrat', sans-serif;
-        color: #4B0082; /* Roxo escuro para contraste */
+        color: #3CB371; /* Roxo escuro para contraste */
         font-size: 28px; 
         font-weight: 800; 
         text-align: center; 
@@ -63,7 +63,7 @@ st.markdown("""
     /* --- ESTA É A PARTE QUE MUDA A COR DO BROWSE FILES --- */
     [data-testid="stFileUploaderDropzone"] button {
         background-color: #E6E0FF !important; /* Cor igual a caixinha */
-        color: #4B0082 !important; /* Letra roxa */
+        color: #3CB371 !important; /* Letra roxa */
         border: 1px solid #9B8ADE !important;
         border-radius: 8px !important;
         transition: 0.3s; /* Deixa o efeito suave */
