@@ -94,8 +94,6 @@ if arquivos_subidos:
         if forn_list or adiant_list:
             pd.concat(forn_list + adiant_list).to_excel(writer, index=False, sheet_name='Geral_D1_D4')
 
-    st.write("---")
-    st.(✅)
     
     st.download_button(
         label="📥 DESCARREGAR RELATÓRIO FINAL (D1-D4)",
