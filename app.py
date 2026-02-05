@@ -2,10 +2,9 @@ import streamlit as st
 import pandas as pd
 import io
 
-
 # 1. Configuração da Página
 st.set_page_config(
-    page_title="GRUPO D",
+    page_title="4D's",
     page_icon="💡",
     layout="wide"
 )
@@ -30,29 +29,64 @@ st.markdown("""
     /* ESCONDER A COROA E ÍCONES DO TOPO */
     button[kind="headerNoPadding"], .stApp header svg {
         display: none !important;
-    }  
-    /* Botão de Download (Verde Bem Escuro) */
-    .stDownloadButton>button {
-        background-color: #1b5e20 !important;
-        color: white !important;
-        font-weight: bold !important;
+    }
+
+    /* TÍTULO FINO E ELEGANTE */
+    .titulo {
+        font-family: 'Montserrat', sans-serif;
+        color: #4B0082; /* Roxo escuro para contraste */
+        font-size: 28px; 
+        font-weight: 800; 
+        text-align: center; 
+        padding: 8px; 
+        background-color: rgba(230, 224, 255, 0.9);
+        border-radius: 10px;
+        border: 1px solid #9B8ADE;
+        margin-top: -35px;
+        margin-bottom: 25px;
+    }
+
+    /* TEXTOS DA BARRA LATERAL EM NEGRITO */
+    [data-testid="stSidebar"] * {
+        font-family: 'Montserrat', sans-serif;
+        color: #FFFFFF !important;
+        font-weight: 600 !important;
+    }
+
+    /* CAIXA DE UPLOAD LILÁS CLARO */
+    [data-testid="stFileUploaderDropzone"] {
+        background-color: rgba(255, 255, 255, 0.4) !important; 
+        border: 2px dashed #9B8ADE !important;
+        border-radius: 12px !important;
+    }
+
+    /* --- ESTA É A PARTE QUE MUDA A COR DO BROWSE FILES --- */
+    [data-testid="stFileUploaderDropzone"] button {
+        background-color: #E6E0FF !important; /* Cor igual a caixinha */
+        color: #4B0082 !important; /* Letra roxa */
+        border: 1px solid #9B8ADE !important;
         border-radius: 8px !important;
-        border: 2px solid #003300 !important;
-        padding: 0.7rem 2.5rem !important;
+        transition: 0.3s; /* Deixa o efeito suave */
+    }
+
+    [data-testid="stFileUploaderDropzone"] button:hover {
+        background-color: #9B8ADE !important; /* Cor igual ao corredor (lilás mais forte) */
+        color: white !important; /* Letra fica branca */
     }
     
-    /* Títulos em Verde Musgo */
-    h1, h2, h3 {
-        color: #1b5e20;
-    }
-    
-    /* Barra lateral */
-    [data-testid="stSidebar"] {
-        background-color: #c8e6c9;
-        border-top: 15px solid #1b5e20; /* Borda também na lateral para alinhar */
+    /* BOTÃO DE DOWNLOAD PERSONALIZADO */
+    .stDownloadButton button {
+        background-color: #9B8ADE !important;
+        color: white !important;
+        border-radius: 8px !important;
+        border: none !important;
+        padding: 10px 20px !important;
     }
     </style>
+    
+    <p class="titulo">💡 SOLUX: Seu parceiro na conciliação 💡</p>
     """, unsafe_allow_html=True)
+
 
 # 3. Painel Lateral com nomes D1 a D4
 with st.sidebar:
