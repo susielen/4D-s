@@ -51,10 +51,7 @@ with st.sidebar:
     st.write("- Empresa **D3**")
     st.write("- Empresa **D4**")
     
-    st.divider()
-    st.markdown("### 📖 Regras de Cálculo:")
-    st.info("Sinal para Fornecedores:\n**Crédito (+)**\n**Débito (-)**")
-
+   
 # 4. Área de Trabalho (Upload)
 st.subheader("📥 Área de Anexos .xlsx")
 arquivos_subidos = st.file_uploader(
