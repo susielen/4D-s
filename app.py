@@ -2,18 +2,35 @@ import streamlit as st
 import pandas as pd
 import io
 
-# 1. Configuração da Página e Estilo (Verde Escuro com Borda no Topo)
-st.set_page_config(page_title="Conciliador Grupo D", layout="wide")
 
+# 1. Configuração da Página
+st.set_page_config(
+    page_title="GRUPO D",
+    page_icon="💡",
+    layout="wide"
+)
+
+# 2. O ESTILO (Cores Suaves, Letra Moderna e Fundo Profissional)
 st.markdown("""
     <style>
-    /* Cor de fundo da página (Verde Floresta Suave) */
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800&display=swap');
+
+    /* FUNDO LILÁS LAVANDA (Suave para os olhos) */
     .stApp {
-        background-color: #e1ede2;
-        /* BORDA DE CIMA PINTADA: Verde bem escuro e grossinha */
-        border-top: 15px solid #1b5e20;
+        background-color: #F3F0FF; 
+        background-image: url("https://www.transparenttextures.com/patterns/cubes.png");
+        background-attachment: fixed;
     }
-    
+
+    /* BARRA LATERAL E TOPO (Roxo Pastel) */
+    header[data-testid="stHeader"], [data-testid="stSidebar"] {
+        background-color: #9B8ADE !important;
+    }
+
+    /* ESCONDER A COROA E ÍCONES DO TOPO */
+    button[kind="headerNoPadding"], .stApp header svg {
+        display: none !important;
+    }  
     /* Botão de Download (Verde Bem Escuro) */
     .stDownloadButton>button {
         background-color: #1b5e20 !important;
@@ -36,10 +53,6 @@ st.markdown("""
     }
     </style>
     """, unsafe_allow_html=True)
-
-# 2. Título
-st.title("Grupo D")
-st.write("---")
 
 # 3. Painel Lateral com nomes D1 a D4
 with st.sidebar:
